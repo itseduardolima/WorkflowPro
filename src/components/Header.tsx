@@ -2,7 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, Mountain, X } from "lucide-react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +17,9 @@ export default function Header() {
   return (
     <header className="bg-white py-4 top-0  shadow-sm">
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-primary">
-          WorkflowPro
+        <Link href="/" className="flex items-center">
+          <Mountain className="h-8 w-8 text-primary mr-2" />
+          <span className="text-2xl font-bold">WorkflowPro</span>
         </Link>
         <nav className="hidden md:block">
           <ul className="flex space-x-4">
@@ -48,7 +49,9 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        <Button className="hidden md:inline-flex" variant="secondary" >Try It Free</Button>
+        <Button className="hidden md:inline-flex" variant="secondary">
+          Try It Free
+        </Button>
         <button
           className="md:hidden z-50"
           onClick={toggleMenu}
@@ -138,7 +141,12 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Button className="mt-8" variant="secondary" size="lg" onClick={toggleMenu}>
+                <Button
+                  className="mt-8"
+                  variant="secondary"
+                  size="lg"
+                  onClick={toggleMenu}
+                >
                   Try It Free
                 </Button>
               </motion.div>
