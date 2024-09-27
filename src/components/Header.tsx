@@ -1,36 +1,57 @@
-import { useState } from 'react'
-import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from "@/components/ui/button"
-import { Menu, X } from 'lucide-react'
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen)
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   const menuVariants = {
     closed: { opacity: 0, x: "-100%" },
-    open: { opacity: 1, x: 0 }
-  }
+    open: { opacity: 1, x: 0 },
+  };
 
   return (
-    <header className="bg-background py-4 sticky top-0 z-50 shadow-sm">
+    <header className="bg-white py-4 top-0  shadow-sm">
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-primary">
           WorkflowPro
         </Link>
         <nav className="hidden md:block">
           <ul className="flex space-x-4">
-            <li><Link href="#features" className="text-muted-foreground hover:text-primary transition-colors">Funcionalidades</Link></li>
-            <li><Link href="#benefits" className="text-muted-foreground hover:text-primary transition-colors">Benefícios</Link></li>
-            <li><Link href="#pricing" className="text-muted-foreground hover:text-primary transition-colors">Preços</Link></li>
+            <li>
+              <Link
+                href="#features"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                Features
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#benefits"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                Benefits
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#pricing"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                Pricing
+              </Link>
+            </li>
           </ul>
         </nav>
-        <Button className="hidden md:inline-flex">Experimente Agora</Button>
-        <button 
-          className="md:hidden z-50" 
-          onClick={toggleMenu} 
+        <Button className="hidden md:inline-flex" variant="secondary" >Try It Free</Button>
+        <button
+          className="md:hidden z-50"
+          onClick={toggleMenu}
           aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -66,9 +87,9 @@ export default function Header() {
             exit="closed"
             variants={menuVariants}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-background z-40 md:hidden"
+            className="fixed inset-0 bg-white h-72 z-40 md:hidden"
           >
-            <div className="container mx-auto px-4 pt-20 flex flex-col justify-center">
+            <div className="container  px-4 pt-8 flex flex-col justify-center">
               <nav>
                 <ul className="space-y-4">
                   <motion.li
@@ -76,21 +97,39 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                   >
-                    <Link href="#features" className="text-xl block py-1" onClick={toggleMenu}>Funcionalidades</Link>
+                    <Link
+                      href="#features"
+                      className="text-xl block py-1"
+                      onClick={toggleMenu}
+                    >
+                      Features
+                    </Link>
                   </motion.li>
                   <motion.li
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <Link href="#benefits" className="text-xl block py-1" onClick={toggleMenu}>Benefícios</Link>
+                    <Link
+                      href="#benefits"
+                      className="text-xl block py-1"
+                      onClick={toggleMenu}
+                    >
+                      Benefits
+                    </Link>
                   </motion.li>
                   <motion.li
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
                   >
-                    <Link href="#pricing" className="text-xl block py-1" onClick={toggleMenu}>Preços</Link>
+                    <Link
+                      href="#pricing"
+                      className="text-xl block py-1"
+                      onClick={toggleMenu}
+                    >
+                      Pricing
+                    </Link>
                   </motion.li>
                 </ul>
               </nav>
@@ -99,12 +138,14 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Button className="mt-8 w-full" size="lg" onClick={toggleMenu}>Experimente Agora</Button>
+                <Button className="mt-8" variant="secondary" size="lg" onClick={toggleMenu}>
+                  Try It Free
+                </Button>
               </motion.div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }
