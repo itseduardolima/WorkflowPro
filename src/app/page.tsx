@@ -11,15 +11,17 @@ import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <Hero />
-      <Features />
-      <Benefits />
-      <Pricing />
-      <Testimonials />
-      <FAQ />
+      <main className="flex-grow">
+        <Hero />
+        <Features />
+        <Benefits />
+        <Testimonials />
+        <Pricing />
+        <FAQ />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
