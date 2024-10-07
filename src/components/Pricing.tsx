@@ -2,105 +2,57 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-
-type Plan = {
-  name: string;
-  monthlyPrice: string;
-  yearlyPrice: string;
-  description: string;
-  features: string[];
-  popular?: boolean;
-};
+import { plans } from "@/mock/plans";
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
 
-  const plans: Plan[] = [
-    {
-      name: "Basic",
-      monthlyPrice: "$19",
-      yearlyPrice: "$190",
-      description: "For small teams",
-      features: [
-        "Up to 5 users",
-        "10 workflows",
-        "Basic integrations",
-        "Email support",
-      ],
-    },
-    {
-      name: "Pro",
-      monthlyPrice: "$49",
-      yearlyPrice: "$490",
-      description: "For growing businesses",
-      features: [
-        "Up to 20 users",
-        "Unlimited workflows",
-        "Advanced integrations",
-        "Priority support",
-      ],
-      popular: true,
-    },
-    {
-      name: "Enterprise",
-      monthlyPrice: "Custom",
-      yearlyPrice: "Custom",
-      description: "For large teams",
-      features: [
-        "Unlimited users",
-        "Unlimited workflows",
-        "Custom integrations",
-        "Dedicated account manager",
-      ],
-    },
-  ];
-
   return (
-    <section id="pricing" className="py-24 bg-[#f4f4f5] border-b ">
+    <section id="pricing" className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <motion.h2
-          className="text-4xl font-bold text-center mb-4"
+          className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          Plans and Pricing
+          Flexible Pricing for Every Business
         </motion.h2>
         <motion.p
-          className="text-xl text-center text-muted-foreground mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          viewport={{ once: true }}
-        >
-          Choose the perfect plan for your business
-        </motion.p>
-
-        <motion.div
-          className="flex items-center justify-center mb-12"
+          className="text-xl text-center text-gray-600 mb-12 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           viewport={{ once: true }}
         >
+          Choose the perfect plan to streamline your workflows
+        </motion.p>
+
+        <div className="flex items-center justify-center mb-12">
           <span
-            className={`mr-2 ${
-              isYearly ? "text-muted-foreground" : "font-semibold"
-            }`}
+            className={`mr-2 ${isYearly ? "text-gray-600" : "font-semibold"}`}
           >
             Monthly
           </span>
-          <Switch
-            checked={isYearly}
-            onCheckedChange={setIsYearly}
-            aria-label="Toggle between monthly and yearly prices"
-          />
+          <Button
+            variant="outline"
+            size="sm"
+            className={`relative ${
+              isYearly
+                ? "bg-gradient-to-r from-blue-100 to-purple-100"
+                : "bg-gray-200"
+            } w-16 h-8 rounded-full transition-colors`}
+            onClick={() => setIsYearly(!isYearly)}
+          >
+            <motion.div
+              className="absolute top-1 left-1 bg-white w-6 h-6 rounded-full shadow-sm"
+              animate={{ x: isYearly ? 32 : 0 }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
+          </Button>
           <span
-            className={`ml-2 ${
-              isYearly ? "font-semibold" : "text-muted-foreground"
-            }`}
+            className={`ml-2 ${isYearly ? "font-semibold" : "text-gray-600"}`}
           >
             Yearly
           </span>
@@ -109,7 +61,7 @@ const Pricing = () => {
               Save 20%
             </span>
           )}
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan, index) => (
@@ -117,8 +69,8 @@ const Pricing = () => {
               key={index}
               className={`bg-white p-8 rounded-2xl shadow-lg ${
                 plan.popular
-                  ? "border-2 border-primary ring-2 ring-primary ring-opacity-50"
-                  : ""
+                  ? "border-2 border-blue-600 ring-2 ring-blue-600 ring-opacity-50"
+                  : "border border-gray-200"
               }`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -126,40 +78,34 @@ const Pricing = () => {
               viewport={{ once: true }}
             >
               {plan.popular && (
-                <div className="text-primary text-sm font-semibold mb-4 bg-primary/10 py-1 px-3 rounded-full inline-block">
+                <div className="text-blue-600 text-sm font-semibold mb-4 bg-gradient-to-r from-blue-100 to-purple-100 py-1 px-3 rounded-full inline-block">
                   Most Popular
                 </div>
               )}
               <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-              <p className="text-muted-foreground mb-4">{plan.description}</p>
-              <div className="text-4xl font-bold mb-4">
+              <p className="text-gray-600 mb-4">{plan.description}</p>
+              <div className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                 {plan.name !== "Enterprise" && (
-                  <span className="text-lg font-normal text-muted-foreground">
+                  <span className="text-lg font-normal text-gray-600">
                     /{isYearly ? "year" : "month"}
                   </span>
                 )}
               </div>
               <ul className="mb-6 space-y-3">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center">
-                    <Check className="h-5 w-5 text-primary mr-2 flex-shrink-0" />
-                    <span>{feature}</span>
+                {plan.features.map((feature, feature_index) => (
+                  <li key={feature_index} className="flex items-center">
+                    <Check className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" />
+                    <span className="text-gray-600">{feature}</span>
                   </li>
                 ))}
               </ul>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Button
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
+                size="lg"
               >
-                <Button
-                  className="w-full"
-                  variant={plan.popular ? "default" : "outline"}
-                  size="lg"
-                >
-                  {plan.name === "Enterprise" ? "Contact Us" : "Get Started"}
-                </Button>
-              </motion.div>
+                {plan.name === "Enterprise" ? "Contact Sales" : "Get Started"}
+              </Button>
             </motion.div>
           ))}
         </div>
